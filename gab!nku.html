@@ -3,31 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jual Roti Gabin</title>
+    <title>Jual Roti Gabin Rafif</title>
     <style>
-        body { font-family: sans-serif; background-color: #fff9e6; padding: 20px; display: flex; justify-content: center; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fff9e6; padding: 20px; display: flex; justify-content: center; }
         .container { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border: 2px solid #f39c12; }
-        h2 { text-align: center; color: #d35400; }
+        h2 { text-align: center; color: #d35400; margin-bottom: 5px; }
+        p.subtitle { text-align: center; color: #666; margin-bottom: 20px; font-size: 14px; }
         .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #444; }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
         
-        /* Tombol Lokasi */
-        .btn-lokasi { background-color: #3498db; color: white; border: none; padding: 8px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-bottom: 10px; width: 100%; }
+        .btn-lokasi { background-color: #3498db; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; margin-bottom: 10px; width: 100%; font-weight: bold; }
+        .btn-lokasi:hover { background-color: #2980b9; }
+
+        .btn-pesan { width: 100%; padding: 15px; background-color: #25D366; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-pesan:hover { background-color: #128C7E; transform: translateY(-2px); }
         
-        /* Tombol Pesan */
-        .btn-pesan { width: 100%; padding: 14px; background-color: #25D366; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        button:disabled { background-color: #ccc; }
+        .footer { text-align: center; font-size: 11px; color: #999; margin-top: 20px; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h2>Roti Gabin Rafif 🍞</h2>
+        <p class="subtitle">Fla Susu • Ubi Ungu • Matcha</p>
         
         <div class="form-group">
             <label>Nama Pembeli:</label>
-            <input type="text" id="nama" placeholder="Nama Anda" required>
+            <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
+        </div>
+
+        <div class="form-group">
+            <label>Pilih Rasa:</label>
+            <select id="rasa">
+                <option value="Fla Susu">🍦 Fla Susu</option>
+                <option value="Ubi Ungu">🍠 Ubi Ungu</option>
+                <option value="Matcha">🍵 Matcha</option>
+            </select>
         </div>
         
         <div class="form-group">
@@ -36,52 +48,58 @@
         </div>
         
         <div class="form-group">
-            <label>Alamat / Lokasi:</label>
-            <button class="btn-lokasi" onclick="ambilLokasi()">📍 Klik untuk Ambil Lokasi GPS Otomatis</button>
-            <textarea id="alamat" rows="4" placeholder="Tulis alamat atau tunggu GPS..." required></textarea>
+            <label>Alamat / Lokasi Pengiriman:</label>
+            <button class="btn-lokasi" onclick="ambilLokasi()">📍 Klik untuk Ambil Lokasi GPS</button>
+            <textarea id="alamat" rows="3" placeholder="Tulis alamat lengkap atau gunakan GPS..." required></textarea>
         </div>
         
         <button class="btn-pesan" onclick="kirimKeWA()">Kirim Pesanan ke WhatsApp</button>
+        
+        <div class="footer">
+            © 2026 Roti Gabin Rafif - Pesanan langsung ke WA
+        </div>
     </div>
 
     <script>
         function ambilLokasi() {
             const alamatBox = document.getElementById("alamat");
-            alamatBox.value = "Sedang mengambil lokasi...";
+            alamatBox.value = "Sedang mengambil koordinat...";
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
-                    // Membuat link Google Maps
                     const googleMapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
-                    alamatBox.value = `Lokasi Saya (Google Maps): ${googleMapsLink}`;
+                    alamatBox.value = `Lokasi Saya: ${googleMapsLink}`;
                 }, function(error) {
-                    alert("Gagal mengambil lokasi. Pastikan GPS HP aktif dan izinkan akses lokasi di browser.");
+                    alert("Gagal ambil lokasi. Pastikan GPS aktif dan izinkan akses di browser.");
                     alamatBox.value = "";
                 });
             } else {
-                alert("Browser Anda tidak mendukung fitur lokasi.");
+                alert("Browser tidak mendukung fitur lokasi.");
             }
         }
 
         function kirimKeWA() {
             const nomorWA = "6287786209071"; 
             const nama = document.getElementById("nama").value;
+            const rasa = document.getElementById("rasa").value;
             const jumlah = document.getElementById("jumlah").value;
             const alamat = document.getElementById("alamat").value;
 
             if (nama === "" || alamat === "") {
-                alert("Harap isi Nama dan Alamat!");
+                alert("Mohon lengkapi Nama dan Alamat!");
                 return;
             }
 
-            const pesan = `*PESANAN ROTI GABIN*%0A` +
+            const pesan = `*PESANAN BARU - ROTI GABIN*%0A` +
                           `---------------------------%0A` +
                           `*Nama:* ${nama}%0A` +
+                          `*Rasa:* ${rasa}%0A` +
                           `*Jumlah:* ${jumlah} porsi%0A` +
-                          `*Alamat/Link Map:* ${alamat}%0A` +
-                          `---------------------------`;
+                          `*Alamat:* ${alamat}%0A` +
+                          `---------------------------%0A` +
+                          `Mohon diproses ya kak!`;
 
             const urlWA = `https://api.whatsapp.com/send?phone=${6287786209071}&text=${pesan}`;
             window.open(urlWA, "_blank");
