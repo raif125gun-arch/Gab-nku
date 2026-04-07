@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jual Roti Gabin</title>
+    <style>
+        body { font-family: sans-serif; background-color: #fff9e6; padding: 20px; display: flex; justify-content: center; }
+        .container { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border: 2px solid #f39c12; }
+        h2 { text-align: center; color: #d35400; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        
+        /* Tombol Lokasi */
+        .btn-lokasi { background-color: #3498db; color: white; border: none; padding: 8px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-bottom: 10px; width: 100%; }
+        
+        /* Tombol Pesan */
+        .btn-pesan { width: 100%; padding: 14px; background-color: #25D366; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        button:disabled { background-color: #ccc; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Roti Gabin Rafif 🍞</h2>
+        
+        <div class="form-group">
+            <label>Nama Pembeli:</label>
+            <input type="text" id="nama" placeholder="Nama Anda" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Jumlah Pesanan:</label>
+            <input type="number" id="jumlah" value="1" min="1">
+        </div>
+        
+        <div class="form-group">
+            <label>Alamat / Lokasi:</label>
+            <button class="btn-lokasi" onclick="ambilLokasi()">📍 Klik untuk Ambil Lokasi GPS Otomatis</button>
+            <textarea id="alamat" rows="4" placeholder="Tulis alamat atau tunggu GPS..." required></textarea>
+        </div>
+        
+        <button class="btn-pesan" onclick="kirimKeWA()">Kirim Pesanan ke WhatsApp</button>
+    </div>
+
+    <script>
+        function ambilLokasi() {
+            const alamatBox = document.getElementById("alamat");
+            alamatBox.value = "Sedang mengambil lokasi...";
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    // Membuat link Google Maps
+                    const googleMapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                    alamatBox.value = `Lokasi Saya (Google Maps): ${googleMapsLink}`;
+                }, function(error) {
+                    alert("Gagal mengambil lokasi. Pastikan GPS HP aktif dan izinkan akses lokasi di browser.");
+                    alamatBox.value = "";
+                });
+            } else {
+                alert("Browser Anda tidak mendukung fitur lokasi.");
+            }
+        }
+
+        function kirimKeWA() {
+            const nomorWA = "6287786209071"; 
+            const nama = document.getElementById("nama").value;
+            const jumlah = document.getElementById("jumlah").value;
+            const alamat = document.getElementById("alamat").value;
+
+            if (nama === "" || alamat === "") {
+                alert("Harap isi Nama dan Alamat!");
+                return;
+            }
+
+            const pesan = `*PESANAN ROTI GABIN*%0A` +
+                          `---------------------------%0A` +
+                          `*Nama:* ${nama}%0A` +
+                          `*Jumlah:* ${jumlah} porsi%0A` +
+                          `*Alamat/Link Map:* ${alamat}%0A` +
+                          `---------------------------`;
+
+            const urlWA = `https://api.whatsapp.com/send?phone=${6287786209071}&text=${pesan}`;
+            window.open(urlWA, "_blank");
+        }
+    </script>
+
+</body>
+</html>
