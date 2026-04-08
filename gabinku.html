@@ -3,62 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Roti Gabin Rafif</title>
+    <title>Gabinku - Renyah Diluar Lumer Didalam</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #fff9e6; padding: 20px; display: flex; justify-content: center; }
-        .container { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border: 2px solid #f39c12; }
-        h2 { text-align: center; color: #d35400; margin-bottom: 5px; }
-        p.subtitle { text-align: center; color: #666; margin-bottom: 20px; font-size: 14px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #444; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
+        body { font-family: 'Poppins', 'Segoe UI', sans-serif; background-color: #fff9e6; margin: 0; display: flex; flex-direction: column; align-items: center; }
         
-        /* Gaya baris rasa */
-        .rasa-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; background: #fef5e7; padding: 10px; border-radius: 8px; }
-        .rasa-row label { margin-bottom: 0; flex: 1; font-size: 14px; }
-        .rasa-row input { width: 80px; text-align: center; }
+        /* Gaya Header Brand (Pojok Kiri Atas) */
+        .brand-header { width: 100%; max-width: 400px; padding: 10px 15px; display: flex; align-items: center; position: fixed; top: 0; background-color: rgba(255, 255, 255, 0.9); z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .logo-header { height: 40px; border-radius: 5px; }
 
-        .btn-lokasi { background-color: #3498db; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; margin-bottom: 10px; width: 100%; font-weight: bold; }
-        .btn-pesan { width: 100%; padding: 15px; background-color: #25D366; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        .btn-pesan:hover { background-color: #128C7E; transform: translateY(-2px); }
-        .footer { text-align: center; font-size: 11px; color: #999; margin-top: 20px; }
+        .container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 8px 16px rgba(211, 84, 0, 0.1); width: 100%; max-width: 400px; border: 1px solid #f39c12; margin-top: 70px; margin-bottom: 30px; }
+        h2 { text-align: center; color: #d35400; margin-bottom: 5px; }
+        .tagline { text-align: center; font-size: 13px; color: #7f8c8d; font-style: italic; margin-top: 0; margin-bottom: 25px; }
+
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        
+        /* Gaya Input Jumlah per Rasa */
+        .rasa-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; background: #fffcf5; padding: 10px; border-radius: 10px; border: 1px solid #fff3e0; }
+        .rasa-name { font-weight: 600; flex: 1; }
+        .rasa-qty { width: 70px !important; text-align: center; font-size: 16px; border-color: #f39c12 !important; }
+
+        .btn-lokasi { background-color: #ebf5fb; color: #2980b9; border: 1pxdashed #2980b9; padding: 10px; border-radius: 10px; cursor: pointer; font-size: 12px; margin-bottom: 10px; width: 100%; font-weight: bold; }
+        .btn-pesan { width: 100%; padding: 15px; background: linear-gradient(135deg, #f1c40f, #d35400); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 8px rgba(211, 84, 0, 0.2); }
+        .footer { text-align: center; font-size: 11px; color: #bdc3c7; margin-top: 20px; }
     </style>
 </head>
 <body>
 
+    <div class="brand-header">
+        <img src="Gabin.png" alt="Logo Gabinku" class="logo-header">
+    </div>
+
     <div class="container">
-        <h2>Roti Gabin Rafif 🍞</h2>
-        <p class="subtitle">Pilih rasa dan jumlah sesukamu!</p>
+        <h2>Order Gabinku 🍞</h2>
+        <p class="tagline">"Gurihnya Bikin Nagih!"</p>
         
         <div class="form-group">
-            <label>Nama Pembeli:</label>
-            <input type="text" id="nama" placeholder="Nama Anda" required>
+            <label>Nama Anda:</label>
+            <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
         </div>
 
-        <label>Menu & Jumlah:</label>
+        <label style="margin-top: 15px;">Menu & Jumlah:</label>
         
         <div class="rasa-row">
-            <label>🍦 Fla Susu</label>
-            <input type="number" id="qty_susu" value="0" min="0">
+            <span class="rasa-name">🍦 Fla Susu</span>
+            <input type="number" id="qty_susu" class="rasa-qty" value="0" min="0">
         </div>
 
         <div class="rasa-row">
-            <label>🍠 Ubi Ungu</label>
-            <input type="number" id="qty_ubi" value="0" min="0">
+            <span class="rasa-name">🍠 Ubi Ungu</span>
+            <input type="number" id="qty_ubi" class="rasa-qty" value="0" min="0">
         </div>
 
         <div class="rasa-row">
-            <label>🍵 Matcha</label>
-            <input type="number" id="qty_matcha" value="0" min="0">
+            <span class="rasa-name">🍵 Matcha</span>
+            <input type="number" id="qty_matcha" class="rasa-qty" value="0" min="0">
         </div>
         
         <div class="form-group" style="margin-top: 20px;">
-            <label>Alamat / Lokasi Pengiriman:</label>
-            <button class="btn-lokasi" onclick="ambilLokasi()">📍 Klik untuk Ambil Lokasi GPS</button>
-            <textarea id="alamat" rows="3" placeholder="Tulis alamat lengkap..." required></textarea>
+            <label>Alamat/Patokan:</label>
+            <button class="btn-lokasi" onclick="ambilLokasi()">📍 Gunakan Titik GPS</button>
+            <textarea id="alamat" rows="3" placeholder="Contoh: Jl. Merdeka No. 1, samping masjid..." required></textarea>
         </div>
         
-        <button class="btn-pesan" onclick="kirimKeWA()">Kirim Pesanan ke WhatsApp</button>
+        <button class="btn-pesan" onclick="kirimKeWA()">Kirim Order (WhatsApp)</button>
+        
+        <div class="footer">
+            © 2026 Gabinku Rafif
+        </div>
+    </div>
+
+    <script>
+        function ambilLokasi() {
+            const alamatBox = document.getElementById("alamat");
+            alamatBox.value = "Sedang mengambil lokasi...";
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    alamatBox.value = `Titik Lokasi: https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`;
+                }, function() {
+                    alert("GPS gagal. Mohon isi alamat manual.");
+                    alamatBox.value = "";
+                });
+            }
+        }
+
+        function kirimKeWA() {
+            const nomorWA = "6287786209071"; 
+            const nama = document.getElementById("nama").value;
+            const susu = document.getElementById("qty_susu").value;
+            const ubi = document.getElementById("qty_ubi").value;
+            const matcha = document.getElementById("qty_matcha").value;
+            const alamat = document.getElementById("alamat").value;
+            const total = parseInt(susu) + parseInt(ubi) + parseInt(matcha);
+
+            if (nama === "" || alamat === "" || total === 0) {
+                alert("Mohon lengkapi Nama, Alamat, dan pilih minimal 1 pesanan!");
+                return;
+            }
+
+            let daftarOrder = "";
+            if (susu > 0) daftarOrder += `- Fla Susu: ${susu} pcs%0A`;
+            if (ubi > 0) daftarOrder += `- Ubi Ungu: ${ubi} pcs%0A`;
+            if (matcha > 0) daftarOrder += `- Matcha: ${matcha} pcs%0A`;
+
+            const pesan = `*ORDER GABINKU BARU!*%0A` +
+                          `---------------------------%0A` +
+                          `*Nama:* ${nama}%0A` +
+                          `*Pesanan:*%0A${daftarOrder}` +
+                          `---------------------------%0A` +
+                          `*Alamat:* ${alamat}%0A%0A` +
+                          `Mohon diproses ya kak!`;
+
+            window.open(`https://api.whatsapp.com/send?phone=${nomorWA}&text=${pesan}`, "_blank");
+        }
+    </script>
+</body>
+</html>
         
         <div class="footer">
             © 2026 Roti Gabin Rafif
